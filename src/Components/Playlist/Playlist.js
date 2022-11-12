@@ -4,20 +4,17 @@ import Track from "../Track/Track";
 import TrackList from "../TrackList/TrackList";
 import "./Playlist.css";
 
-const Playlist = () => {
-  return (
-    <div className="Playlist">
-      <h2>Playlist</h2>
-      <input value="New Playlist" />
-      {/* <TrackList tracks={playlistTracks} /> */}
-      {playlistTracks.map((track) => {
-        console.log(track);
-        const { name, artist, album, id } = track;
-        return <Track name={name} artist={artist} album={album} key={id} />;
-      })}
-      <button className="Playlist-save">SAVE TO SPOTIFY</button>
-    </div>
-  );
-};
+class Playlist extends React.Component {
+  render() {
+    return (
+      <div className="Playlist">
+        <input defaultValue={"New Playlist"} />
+        <TrackList tracks={this.props.playlistTracks} />
+
+        <button className="Playlist-save">SAVE TO SPOTIFY</button>
+      </div>
+    );
+  }
+}
 
 export default Playlist;
