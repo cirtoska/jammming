@@ -1,8 +1,6 @@
-//import SearchBar from "../Components/SearchBar/SearchBar";
-
 const clientId = "13269c9c001b43ada1549e5389052516";
-const redirectUri = "http://localhost:3000";
-//const redirectUri = 'http://mkkf-react-jammming.surge.sh';
+const redirectUri = "https://jammming-two.vercel.app/";
+
 let accessToken;
 
 const Spotify = {
@@ -11,7 +9,6 @@ const Spotify = {
       return accessToken;
     }
 
-    // check for access token match
     const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
     const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
 
@@ -19,14 +16,12 @@ const Spotify = {
       accessToken = accessTokenMatch[1];
       const expiresIn = Number(expiresInMatch[1]);
 
-      // clears the parameter and allowing to grab a new ones
       window.setTimeout(() => (accessToken = ""), expiresIn * 1000);
       window.history.pushState("Access Token", null, "/");
       return accessToken;
     } else {
       const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
       window.location = accessUrl;
-      console.log(accessUrl);
     }
   },
 
@@ -44,15 +39,11 @@ const Spotify = {
         if (!jsonResponse.tracks) {
           return [];
         }
-        console.log(jsonResponse.tracks.items);
-        console.log(jsonResponse.tracks.items[0].album.images[0].url);
         return jsonResponse.tracks.items.map((track) => ({
           id: track.id,
           name: track.name,
-          artists: track.artists[0].name,
+          artist: track.artists[0].name,
           album: track.album.name,
-          images: track.album.images[0].url,
-          preview_url: track.preview_url,
           uri: track.uri,
         }));
       });
@@ -81,12 +72,13 @@ const Spotify = {
             const playlistId = jsonResponse.id;
             return fetch(
               `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`,
+
               {
                 headers: headers,
                 method: "POST",
                 body: JSON.stringify({ uris: trackUris }),
               }
-            ).then(alert("Success!"));
+            );
           });
       });
   },
