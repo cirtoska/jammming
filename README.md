@@ -1,3 +1,7 @@
+# Codecademy React Project - Create a Playlist App With the Spotify API (Part One)
+
+In this project, I've built a React web application called Jammming. I was using my knowledge of React components, passing state, and requests with the Spotify API to build a website that allows users to search the Spotify library, create a custom playlist, then save it to their Spotify account.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
